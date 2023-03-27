@@ -4,10 +4,11 @@ import java.util.List;
 public abstract class Fuel {
     public final Price highest;
     private final Type type;
+    private static final int START_YEAR = 2018;
     public Fuel (Type type, double... prices) {
         this.type = type;
         ArrayList<Price> priceList = new ArrayList<>(prices.length);
-        int year = 2018;
+        int year = START_YEAR;
         for (double price : prices) {
             priceList.add(Price.of(price, year++));
         }
