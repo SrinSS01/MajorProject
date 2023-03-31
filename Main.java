@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Stream;
 
 public class Main {
     private static final Zone EAST = new Zone(
@@ -28,31 +28,29 @@ public class Main {
     );
 
     public static void main(String[] args) {
-        ArrayList<Zone> zones = new ArrayList<>(List.of(NORTH, EAST, WEST, SOUTH));
-        Price petrolHighest = zones.get(0).getPetrol().highest;
-        Price dieselHighest = zones.get(0).getDiesel().highest;
-        Price lpgHighest = zones.get(0).getLpg().highest;
-        Zone zoneHighest = zones.get(0);
-        for (Zone z : zones) {
-                if (z.getPetrol().highest.price() > petrolHighest.price()) {
-                        petrolHighest = z.getPetrol().highest;
+        Stream<Zone> zones = Stream.of(NORTH, EAST, WEST, SOUTH);
+        AtomicReference<Price> petrolHighest = new AtomicReference<>(NORTH.getPetrol().highest);
+        AtomicReference<Price> dieselHighest = new AtomicReference<>(NORTH.getDiesel().highest);
+        AtomicReference<Price> lpgHighest = new AtomicReference<>(NORTH.getLpg().highest);
+        AtomicReference<Zone> zoneHighest = new AtomicReference<>(NORTH);
+
+        zones.forEach(zone -> {
+                if (zone.getPetrol().highest.price() > petrolHighest.get().price()) {
+                        petrolHighest.set(zone.getPetrol().highest);
                 }
-                if (z.getDiesel().highest.price() > dieselHighest.price()) {
-                        dieselHighest = z.getDiesel().highest;
+                if (zone.getDiesel().highest.price() > dieselHighest.get().price()) {
+                        dieselHighest.set(zone.getDiesel().highest);
                 }
-                if (z.getLpg().highest.price() > lpgHighest.price()) {
-                        lpgHighest = z.getLpg().highest;
+                if (zone.getLpg().highest.price() > lpgHighest.get().price()) {
+                        lpgHighest.set(zone.getLpg().highest);
                 }
-                if (z.getHighest().highest.price() > zoneHighest.getHighest().highest.price()) {
-                        zoneHighest = z;
+                if (zone.getHighest().highest.price() > zoneHighest.get().getHighest().highest.price()) {
+                        zoneHighest.set(zone);
                 }
-        }
-        final Price petrolHighestFinal = petrolHighest;
-        final Price dieselHighestFinal = dieselHighest;
-        final Price lpgHighestFinal = lpgHighest;
-        zones.stream().filter(it -> it.getPetrol().highest.price() == petrolHighestFinal.price()).forEach(it -> it.setPetrolHighest());
-        zones.stream().filter(it -> it.getDiesel().highest.price() == dieselHighestFinal.price()).forEach(it -> it.setDieselHighest());
-        zones.stream().filter(it -> it.getLpg().highest.price() == lpgHighestFinal.price()).forEach(it -> it.setLpgHighest());
+        });
+        zones.filter(it -> it.getPetrol().highest.price() == petrolHighest.get().price()).forEach(it -> it.setPetrolHighest());
+        zones.filter(it -> it.getDiesel().highest.price() == dieselHighest.get().price()).forEach(it -> it.setDieselHighest());
+        zones.filter(it -> it.getLpg().highest.price() == lpgHighest.get().price()).forEach(it -> it.setLpgHighest());
 
         System.out.printf(
                 """
@@ -71,25 +69,26 @@ public class Main {
                 WEST.isPetrolHighest() ? '*' : ' ',
                 NORTH.isPetrolHighest() ? '*' : ' ',
                 SOUTH.isPetrolHighest() ? '*' : ' ',
-                petrolHighest.year(),
+                petrolHighest.get().year(),
                 EAST.isDieselHighest() ? '*' : ' ',
                 WEST.isDieselHighest() ? '*' : ' ',
                 NORTH.isDieselHighest() ? '*' : ' ',
                 SOUTH.isDieselHighest() ? '*' : ' ',
-                dieselHighest.year(),
+                dieselHighest.get().year(),
                 EAST.isLpgHighest() ? '*' : ' ',
                 WEST.isLpgHighest() ? '*' : ' ',
                 NORTH.isLpgHighest() ? '*' : ' ',
                 SOUTH.isLpgHighest() ? '*' : ' ',
-                lpgHighest.year()
+                lpgHighest.get().year()
         );
 
+        Zone zone = zoneHighest.get();
         System.out.printf(
                 "Amongst all the zones highest price was in the %sERN zone for %s with a price of Rs. %s in the year %d%n%n", 
-                zoneHighest.getType(),
-                zoneHighest.getHighest().getType(), 
-                zoneHighest.getHighest().highest.price(), 
-                zoneHighest.getHighest().highest.year()
+                zone.getType(),
+                zone.getHighest().getType(), 
+                zone.getHighest().highest.price(), 
+                zone.getHighest().highest.year()
         );
     }
 }
