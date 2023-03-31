@@ -3,9 +3,9 @@ import java.util.List;
 
 public abstract class Fuel {
     public final Price highest;
-    private final Type type;
+    private final Fuel.Type type;
     private static final int START_YEAR = 2018;
-    public Fuel (Type type, double... prices) {
+    public Fuel (Fuel.Type type, double... prices) {
         this.type = type;
         ArrayList<Price> priceList = new ArrayList<>(prices.length);
         int year = START_YEAR;
@@ -38,4 +38,8 @@ public abstract class Fuel {
     public Type getType() {
         return type;
     }
+
+    public enum Type {
+        PETROL, DIESEL, LPG
+    }    
 }

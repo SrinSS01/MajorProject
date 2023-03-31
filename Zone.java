@@ -4,24 +4,14 @@ public class Zone {
     private final Fuel highest;
     private final Fuel petrol, diesel, lpg;
     private boolean isPetrolHighest = false, isDieselHighest = false, isLpgHighest = false;
+    private final Zone.Type type;
 
-    public Zone(Petrol petrol, Diesel diesel, LPG lpg) {
+    public Zone(Zone.Type type, Petrol petrol, Diesel diesel, LPG lpg) {
+        this.type = type;
         this.petrol = petrol;
         this.diesel = diesel;
         this.lpg = lpg;
         highest = Stream.of(petrol, diesel, lpg).max((f1, f2) -> f1.highest.compareTo(f2.highest)).orElse(null);
-    }
-
-    static int petrolComparator(Zone a, Zone b) {
-        return Double.compare(a.getPetrol().highest.price(), b.getPetrol().highest.price());
-    }
-
-    static int dieselComparator(Zone a, Zone b) {
-        return Double.compare(a.getDiesel().highest.price(), b.getDiesel().highest.price());
-    }
-
-    static int lpgComparator(Zone a, Zone b) {
-        return Double.compare(a.getLpg().highest.price(), b.getLpg().highest.price());
     }
 
     public void setPetrolHighest() {
@@ -62,5 +52,13 @@ public class Zone {
 
     public Fuel getLpg() {
         return lpg;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    enum Type {
+        NORTH, EAST, WEST, SOUTH
     }
 }
