@@ -2,30 +2,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    private static final Zone EAST = new Zone(
-            Zone.Type.EAST,
-            new Petrol(84.68, 74.91, 90.34, 101.87, 106.03),
-            new Diesel(75.97, 64.61, 80.51, 92.67, 92.76),
-            new LPG(66.0, 44.0, 45.0, 64.0, 74.0)
-    );
-    private static final Zone WEST = new Zone(
-            Zone.Type.WEST,
-            new Petrol(90.22, 78.57, 87.82, 107.47, 111.35),
-            new Diesel(78.69, 66.35, 77.99, 94.17, 94.24),
-            new LPG(55.98, 39.57, 41.83, 63.41, 75.24)
-    );                                        
-    private static final Zone NORTH = new Zone(
-            Zone.Type.NORTH,
-            new Petrol(82.86, 72.96, 81.14, 101.39, 96.72),
-            new Diesel(74.12, 62.88, 71.58, 89.57, 89.62),
-            new LPG(57.74, 41.54, 41.83, 62.28, 74.15)
-    );
-    private static final Zone SOUTH = new Zone(
-            Zone.Type.SOUTH,
-            new Petrol(86.13, 76.25, 84.22, 99.15, 102.63),
-            new Diesel(78.36, 66.35, 77.99, 94.17, 94.24),
-            new LPG(59.04, 42.71, 42.95, 63.41, 75.24)
-    );
+    private static final Zone EAST;
+    private static final Zone WEST;                                        
+    private static final Zone NORTH;
+    private static final Zone SOUTH;
+
+    static {
+        System.out.println("Eastern Zone");
+        EAST = new Zone(
+                Zone.Type.EAST,
+                new Petrol(84.68, 74.91, 90.34, 101.87, 106.03),
+                new Diesel(75.97, 64.61, 80.51, 92.67, 92.76),
+                new LPG(66.0, 44.0, 45.0, 64.0, 74.0)
+        );
+        System.out.println("\nWestern Zone");
+        WEST = new Zone(
+                Zone.Type.WEST,
+                new Petrol(90.22, 78.57, 87.82, 107.47, 111.35),
+                new Diesel(78.69, 66.35, 77.99, 94.17, 94.24),
+                new LPG(55.98, 39.57, 41.83, 63.41, 75.24)
+        );
+        System.out.println("\nNorthern Zone");
+        NORTH = new Zone(
+                Zone.Type.NORTH,
+                new Petrol(82.86, 72.96, 81.14, 101.39, 96.72),
+                new Diesel(74.12, 62.88, 71.58, 89.57, 89.62),
+                new LPG(57.74, 41.54, 41.83, 62.28, 74.15)
+        );
+        System.out.println("\nSouthern Zone");
+        SOUTH = new Zone(
+                Zone.Type.SOUTH,
+                new Petrol(86.13, 76.25, 84.22, 99.15, 102.63),
+                new Diesel(78.36, 66.35, 77.99, 94.17, 94.24),
+                new LPG(59.04, 42.71, 42.95, 63.41, 75.24)
+        );
+    }
 
     public static void main(String[] args) {
         ArrayList<Zone> zones = new ArrayList<>(List.of(NORTH, EAST, WEST, SOUTH));

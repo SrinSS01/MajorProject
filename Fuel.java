@@ -12,15 +12,36 @@ public abstract class Fuel {
         for (double price : prices) {
             priceList.add(Price.of(price, year++));
         }
+        priceList.sort((p1, p2) -> p1.compareTo(p2));
         highest = select(priceList);
     }
 
     Price select(ArrayList<Price> dataSet) {
+        int i = 1;
+        System.out.println("\n\tFuel type: " + type);
         while (dataSet.size() > 1) {
+            System.out.println("\tIteration " + i++);
+            int rank = 1;
+            System.out.println("\t+---------------------------+");
+            System.out.println("\t|  Rank  |  Price  |  Year  |");
+            System.out.println("\t+---------------------------+");
+            for (Price price : dataSet) {
+                System.out.printf("\t| %6s | %7s | %6d |%n", rank++, price.price(), price.year());
+            }
+            System.out.println("\t+---------------------------+");
             double fitnessValue = fitnessFunction(dataSet);
             dataSet.removeIf(data -> data.price() < fitnessValue);
         }
-        return dataSet.get(0);
+        var select = dataSet.get(0);
+        System.out.println("\tIteration " + i);
+        System.out.println("\t+---------------------------+");
+        System.out.println("\t|  Rank  |  Price  |  Year  |");
+        System.out.println("\t+---------------------------+");
+        System.out.printf("\t| %6s | %7s | %6d |%n", 1, select.price(), select.year());
+        System.out.println("\t+---------------------------+");
+        System.out.println("\n\tHeighest price: " + select.price() + " at year " + select.year());
+
+        return select;
     }
 
     double fitnessFunction(List<Price> dataSet) {
