@@ -35,6 +35,11 @@ public abstract class Fuel {
         return sum / size;
     }
 
+    // a static comparator for sorting the prices
+    public static int compare(Fuel f1, Fuel f2) {
+        return f1.highest.compareTo(f2.highest);
+    }
+
     public Type getType() {
         return type;
     }

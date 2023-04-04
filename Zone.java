@@ -11,7 +11,7 @@ public class Zone {
         this.petrol = petrol;
         this.diesel = diesel;
         this.lpg = lpg;
-        highest = Stream.of(petrol, diesel, lpg).max((f1, f2) -> f1.highest.compareTo(f2.highest)).orElse(null);
+        highest = Stream.of(petrol, diesel, lpg).max(Fuel::compare).orElse(null);
     }
 
     public void setPetrolHighest() {
