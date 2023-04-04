@@ -32,7 +32,7 @@ public abstract class Fuel {
             double fitnessValue = fitnessFunction(dataSet);
             dataSet.removeIf(data -> data.price() < fitnessValue);
         }
-        var select = dataSet.get(0);
+        Price select = dataSet.get(0);
         System.out.println("\tIteration " + i);
         System.out.println("\t+---------------------------+");
         System.out.println("\t|  Rank  |  Price  |  Year  |");
