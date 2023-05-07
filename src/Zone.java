@@ -13,51 +13,39 @@ public class Zone {
         this.lpg = lpg;
         highest = Stream.of(petrol, diesel, lpg).max(Fuel::compare).orElse(null);
     }
-
     public void setPetrolHighest() {
         this.isPetrolHighest = true;
     }
-
     public void setDieselHighest() {
         this.isDieselHighest = true;
     }
-
     public void setLpgHighest() {
         this.isLpgHighest = true;
     }
-
     public boolean isPetrolHighest() {
         return isPetrolHighest;
     }
-
     public boolean isDieselHighest() {
         return isDieselHighest;
     }
-
     public boolean isLpgHighest() {
         return isLpgHighest;
     }
-
     public Fuel getHighest() {
         return highest;
     }
-
     public Fuel getPetrol() {
         return petrol;
     }
-
     public Fuel getDiesel() {
         return diesel;
     }
-
     public Fuel getLpg() {
         return lpg;
     }
-
     public Type getType() {
         return type;
     }
-
     enum Type {
         NORTH, EAST, WEST, SOUTH
     }

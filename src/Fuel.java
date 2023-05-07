@@ -12,10 +12,9 @@ public abstract class Fuel {
         for (double price : prices) {
             priceList.add(Price.of(price, year++));
         }
-        priceList.sort((p1, p2) -> p1.compareTo(p2));
+        priceList.sort(Price::compareTo);
         highest = select(priceList);
     }
-
     Price select(ArrayList<Price> dataSet) {
         int i = 1;
         System.out.println("\n\tFuel type: " + type);
@@ -30,6 +29,7 @@ public abstract class Fuel {
             }
             System.out.println("\t+---------------------------+");
             double fitnessValue = fitnessFunction(dataSet);
+            //System.out.println("\tFitness value: " + fitnessValue);
             dataSet.removeIf(data -> data.price() < fitnessValue);
         }
         Price select = dataSet.get(0);
@@ -40,10 +40,8 @@ public abstract class Fuel {
         System.out.printf("\t| %6s | %7s | %6d |%n", 1, select.price(), select.year());
         System.out.println("\t+---------------------------+");
         System.out.println("\n\tHeighest price: " + select.price() + " at year " + select.year());
-
         return select;
     }
-
     double fitnessFunction(List<Price> dataSet) {
         double sum = 0;
         int size = 0;
@@ -55,16 +53,13 @@ public abstract class Fuel {
         if (size == 0) return 0;
         return sum / size;
     }
-
     // a static comparator for sorting the prices
     public static int compare(Fuel f1, Fuel f2) {
         return f1.highest.compareTo(f2.highest);
     }
-
     public Type getType() {
         return type;
     }
-
     public enum Type {
         PETROL, DIESEL, LPG
     }    
