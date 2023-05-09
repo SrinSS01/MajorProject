@@ -61,9 +61,9 @@ public class Main {
         final Price petrolHighestFinal = petrolHighest;
         final Price dieselHighestFinal = dieselHighest;
         final Price lpgHighestFinal = lpgHighest;
-        zones.stream().filter(it -> it.getPetrol().highest.price() == petrolHighestFinal.price()).forEach(Zone::setPetrolHighest);
-        zones.stream().filter(it -> it.getDiesel().highest.price() == dieselHighestFinal.price()).forEach(Zone::setDieselHighest);
-        zones.stream().filter(it -> it.getLpg().highest.price() == lpgHighestFinal.price()).forEach(Zone::setLpgHighest);
+        zones.stream().filter(it -> it.getPetrol().highest.price() == petrolHighestFinal.price()).forEach(Zone::setPetrolIsHighest);
+        zones.stream().filter(it -> it.getDiesel().highest.price() == dieselHighestFinal.price()).forEach(Zone::setDieselIsHighest);
+        zones.stream().filter(it -> it.getLpg().highest.price() == lpgHighestFinal.price()).forEach(Zone::setLpgIsHighest);
 
         System.out.printf(
                 """

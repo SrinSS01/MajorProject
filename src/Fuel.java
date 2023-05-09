@@ -29,7 +29,7 @@ public abstract class Fuel {
             }
             System.out.println("\t+---------------------------+");
             double fitnessValue = fitnessFunction(dataSet);
-            //System.out.println("\tFitness value: " + fitnessValue);
+            System.out.printf("\tFitness value: %.2f\n", fitnessValue);
             dataSet.removeIf(data -> data.price() < fitnessValue);
         }
         Price select = dataSet.get(0);

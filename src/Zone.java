@@ -13,13 +13,13 @@ public class Zone {
         this.lpg = lpg;
         highest = Stream.of(petrol, diesel, lpg).max(Fuel::compare).orElse(null);
     }
-    public void setPetrolHighest() {
+    public void setPetrolIsHighest() {
         this.isPetrolHighest = true;
     }
-    public void setDieselHighest() {
+    public void setDieselIsHighest() {
         this.isDieselHighest = true;
     }
-    public void setLpgHighest() {
+    public void setLpgIsHighest() {
         this.isLpgHighest = true;
     }
     public boolean isPetrolHighest() {
